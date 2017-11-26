@@ -1,7 +1,7 @@
 //**************************************************************//
-//  Name    : RG Custom Pro Micro shield code                   //
+//  Name    : RG Custom MK4 Control Panel                       //
 //  Author  : Konstantin `RenderG` Yakushev                     //
-//  Date    : 15 Nov, 2017                                      //
+//  Date    : 26 Nov, 2017                                      //
 //  Version : 1.0                                               //
 //          :                                                   //
 //****************************************************************
