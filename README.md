@@ -17,3 +17,5 @@ LiquidCrystal_I2C
 Adafruit_NeoPixel
 
 ### Link on PCB in OSH Park https://oshpark.com/shared_projects/YERseqpP
+
+### More info you can find out on my discord channel https://discord.gg/tjndHQ7
