@@ -22,7 +22,7 @@ Arduino Joystick library ver 1.0
 LiquidCrystal_I2C
 Adafruit_NeoPixel
 
-### Contacts section:
-#### Facebook https://www.facebook.com/RGcustom/
-#### RG Custom Discord channel https://discord.gg/tjndHQ7 
-#### E-Mail: rgcustm@gmail.com
+## Contacts section:
+### Facebook https://www.facebook.com/RGcustom/
+### RG Custom Discord channel https://discord.gg/tjndHQ7 
+### E-Mail: rgcustm@gmail.com
