@@ -18,11 +18,14 @@ RG Custom GitHub link Here you can find latest Arduino sketches for your control
 Info on how to install additional libraries can be found here. https://www.arduino.cc/en/Guide/libraries#toc4
 
 ### Libraries included as submodules.
-Arduino Joystick library ver 1.0
-LiquidCrystal_I2C
-Adafruit_NeoPixel
+Arduino Joystick library ver 1.0  
+LiquidCrystal_I2C  
+Adafruit_NeoPixel  
 
 ## Contacts section:
-### Facebook https://www.facebook.com/RGcustom/
-### RG Custom Discord channel https://discord.gg/tjndHQ7 
-### E-Mail: rgcustm@gmail.com
+Facebook https://www.facebook.com/RGcustom/  
+RG Custom Discord channel https://discord.gg/tjndHQ7  
+E-Mail: rgcustm@gmail.com  
+IL-2 Forums (russian): https://forum.il2sturmovik.ru/topic/6511-opensource-kontroller-na-arduino/  
+StarCitizen Spectrum thread: https://robertsspaceindustries.com/spectrum/community/SC/forum/50264/thread/open-source-arduino-controller-for-control-panels  
+
