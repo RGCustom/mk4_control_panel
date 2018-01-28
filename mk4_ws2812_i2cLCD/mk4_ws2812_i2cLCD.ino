@@ -133,6 +133,10 @@ unsigned long debounceDelay = 5;    // the debounce time; increase if the output
 
 byte settingVal[] = {  1, 1, 1, 1, 1, 1, 1, 1};
 
+unsigned long lastlooptime = 0;  // the last time the output pin was toggled
+unsigned long looptime = 0;    // the debounce time; increase if the output flickers
+
+
 
 
 void setup() {
@@ -178,6 +182,12 @@ void setup() {
 }
 
 void loop() {
+  looptime = millis();
+  lcd.setCursor(2, 0);
+  lcd.print("                ");
+  lcd.setCursor(0, 0);
+  lcd.print(lastlooptime);
+
 //**************************************************
 //              READING SHIFT REGISTERS
 //**************************************************
@@ -217,6 +227,7 @@ void loop() {
                Joystick.sendState();
                lcd.setCursor(4, 1);
                lcd.print("ON ");
+               lcd.print(i);
                }
               else {
                //action on button release
@@ -224,7 +235,7 @@ void loop() {
                PBstate[i] = 0;
                Joystick.sendState();
                lcd.setCursor(4, 1);
-               lcd.print("OFF");
+               lcd.print("OFF  ");
              }
             }
           }
@@ -254,18 +265,26 @@ void loop() {
                Joystick.pressButton(i + PBnum);
                Joystick.sendState();
                TGstate[i] = 1;
+               lcd.setCursor(4, 1);
+               lcd.print("TGL");
                delay(TGdelay);
                Joystick.releaseButton(i + PBnum);
                Joystick.sendState();
+               lcd.setCursor(4, 1);
+               lcd.print("OFF  ");
                }
               else {
                //action on button release
                Joystick.pressButton(i + PBnum);
                Joystick.sendState();
+               lcd.setCursor(4, 1);
+               lcd.print("TGL");
                delay(TGdelay);
                TGstate[i] = 0;
                Joystick.releaseButton(i + PBnum);
                Joystick.sendState();
+               lcd.setCursor(4, 1);
+               lcd.print("OFF  ");
              }
             }
           }
@@ -295,12 +314,16 @@ void loop() {
                Joystick.setHatSwitch(0, ((i + 1) * 90));
                HATstate[i] = ((i + 1) * 90);
                Joystick.sendState();
+               lcd.setCursor(4, 1);
+               lcd.print("HAT");
                }
               else {
                //action on button release
                Joystick.setHatSwitch(0, -1);
                Joystick.sendState();
                HATstate[i] = -1;
+               lcd.setCursor(4, 1);
+               lcd.print("OFF  ");
              }
             }
           }
@@ -448,6 +471,7 @@ void loop() {
   if (sensorValueRx < sensorMinRx) {
     sensorMinRx = sensorValueRx;
   }
+  lastlooptime = millis() - looptime;
 }
 
 //------------------------------------------------end main loop
