@@ -15,7 +15,7 @@ MK4 has 2 rotary encoders with pushbuttons onboard. Rotary encoders are working 
 RG Custom GitHub link Here you can find latest Arduino sketches for your control panel and this manual. https://github.com/RGCustom/mk4_control_panel
 
 ### Arduino sketch uses external libraries.
-Info on how to install additional libraries can be found here. https://www.arduino.cc/en/Guide/libraries#toc4
+Info on how to install additional libraries can be found here. https://www.arduino.cc/en/Guide/libraries#toc4 
 
 ### Libraries included as submodules.
 Arduino Joystick library ver 1.0  
