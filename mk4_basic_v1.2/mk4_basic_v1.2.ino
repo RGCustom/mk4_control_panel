@@ -2,7 +2,7 @@
 //  Name    : RG Custom MK4 Control Panel                       //
 //  Author  : Konstantin `RenderG` Yakushev                     //
 //  Date    : 26 Nov, 2017                                      //
-//  Version : 1.0                                               //
+//  Version : 1.2                                               //
 //          :                                                   //
 //****************************************************************
 #include <Wire.h>
@@ -44,7 +44,7 @@ int ENCpinB[] = {1,7}; // shiftregister pins encoders direction B / ножки �
 int ENCA[ENCnum]; 
 int ENCB[ENCnum]; 
 int ENC_Aprev[ENCnum];  
-int ENCtime[] = {4,4}; // Encoders timing in ms. Encrease for slower and decrease for faster. Тайминги энкодеров
+int ENCtime[] = {4,4}; // Encoders timing in ms. increase for slower and decrease for faster. Тайминги энкодеров
 unsigned long loopTime;
 
 
@@ -129,12 +129,16 @@ void setup() {
  // Serial.begin(9600);
 
   //start Joystick
-  Joystick.begin(false);
+  Joystick.begin(true);
 
   //define pin modes
   pinMode(latchPin, OUTPUT);
   pinMode(clockPin, OUTPUT);
   pinMode(dataPin, INPUT);
+
+//**************************************************
+//              LCD INITIALISING STRING
+//**************************************************
 }
 
 void loop() {
@@ -333,6 +337,7 @@ void loop() {
 
 
 
+
   
   //    *******************************************************
   //                 AXIS CALIBRATION (auto)
@@ -438,6 +443,9 @@ byte shiftIn(int myDataPin, int myClockPin) {
     digitalWrite(myClockPin, 1);
 
   }
+  //debuging print statements whitespace
+  //Serial.println();
+  //Serial.println(myDataIn, BIN);
   return myDataIn;
 }
 
