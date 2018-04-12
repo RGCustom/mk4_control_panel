@@ -7,4 +7,4 @@
 [submodule "ArduinoJoystickLibrary"]
 	path = ArduinoJoystickLibrary
 	url = https://github.com/MHeironimus/ArduinoJoystickLibrary.git
-	branch = version-1.0
+	branch = master
