@@ -1,8 +1,8 @@
 //**************************************************************//
 //  Name    : RG Custom MK4 Control Panel                       //
 //  Author  : Konstantin `RenderG` Yakushev                     //
-//  Date    : 26 Nov, 2017                                      //
-//  Version : 1.2                                               //
+//  Date    : 12 Apr, 2018                                      //
+//  Version : 2.0                                               //
 //          :                                                   //
 //****************************************************************
 #include <Wire.h>
@@ -49,20 +49,28 @@ unsigned long loopTime;
 
 
 // Set to true to test "Auto Send" mode or false to test "Manual Send" mode.
-//const bool testAutoSendMode = true;
-const bool testAutoSendMode = false;
+const bool initAutoSendState = true;
+//const bool initAutoSendState = false;
 
-uint8_t hidReportId = 0x04; // Default: 0x03 - Indicates the joystick's HID report ID. This value must be unique if you are creating multiple instances of Joystick. Do not use 0x01 or 0x02 as they are used by the built-in Arduino Keyboard and Mouse libraries.
+uint8_t joystickType = 0x04; // Default: 0x03 - Indicates the joystick's HID report ID. This value must be unique if you are creating multiple instances of Joystick. Do not use 0x01 or 0x02 as they are used by the built-in Arduino Keyboard and Mouse libraries.
 uint8_t buttonCount = 32; //Button count
+//uint8_t hatSwitchCount = 2;
+
 
 //**************************************************
 //        AXIS INPUTS SETUP / НАСТРОЙКА ОСЕЙ
 //**************************************************
-
-const int xAxis = A0;         // analog sensor for X axis
-const int yAxis = A3;         // analog sensor for Y axis
-const int zAxis = A2;         // analog sensor for Z axis
-const int rXAxis = A1;        // analog sensor for rX axis
+bool includeXAxis = true; //Indicates if the X Axis is available on the joystick.
+bool includeYAxis = true; //Indicates if the Y Axis is available on the joystick.
+bool includeZAxis = true; //Indicates if the Z Axis (in some situations this is the right X Axis) is available on the joystick.
+bool includeRxAxis = true; //Indicates if the X Axis Rotation (in some situations this is the right Y Axis) is available on the joystick.
+bool includeRyAxis = false; //Indicates if the Y Axis Rotation is available on the joystick.
+bool includeRzAxis = false; //Indicates if the Z Axis Rotation is available on the joystick.
+bool includeRudder = false; //Indicates if the Rudder is available on the joystick.
+bool includeThrottle = false; //Indicates if the Throttle is available on the joystick.
+bool includeAccelerator = false; //Indicates if the Accelerator is available on the joystick.
+bool includeBrake = false; //Indicates if the Brake is available on the joystick.
+bool includeSteering = false; //Indicates if the Steering is available on the joystick.
 const int CalibrationPin = 8; // calibration toggle switch
 
 // axis calibration variables:
@@ -129,7 +137,7 @@ void setup() {
  // Serial.begin(9600);
 
   //start Joystick
-  Joystick.begin(true);
+  Joystick.begin(initAutoSendState);
 
   //define pin modes
   pinMode(latchPin, OUTPUT);
@@ -178,15 +186,13 @@ void loop() {
              // activate button if the new button state ON or OF
              if (bitRead(switchState[PBreg[i]], PBpin[i]) < 1) {
                //action on button press
-               Joystick.pressButton(i);
+               Joystick.setButton(i,1);
                PBstate[i] = 1;
-               Joystick.sendState();
                }
               else {
                //action on button release
-               Joystick.releaseButton(i);
+               Joystick.setButton(i,0);
                PBstate[i] = 0;
-               Joystick.sendState();
              }
             }
           }
@@ -213,21 +219,17 @@ void loop() {
              // activate button if the new button state ON or OF
              if (bitRead(switchState[TGreg[i]], TGpin[i]) < 1) {
                //action on button press
-               Joystick.pressButton(i + PBnum);
-               Joystick.sendState();
+               Joystick.setButton(i + PBnum,1);
                TGstate[i] = 1;
                delay(TGdelay);
-               Joystick.releaseButton(i + PBnum);
-               Joystick.sendState();
+               Joystick.setButton(i + PBnum,0);
                }
               else {
                //action on button release
-               Joystick.pressButton(i + PBnum);
-               Joystick.sendState();
+               Joystick.setButton(i + PBnum,1);
                delay(TGdelay);
                TGstate[i] = 0;
-               Joystick.releaseButton(i + PBnum);
-               Joystick.sendState();
+               Joystick.setButton(i + PBnum,0);
              }
             }
           }
@@ -236,7 +238,7 @@ void loop() {
 // *************************************************
 //     TOGGLE SWITCH SECTION ENDS HERE
 // *************************************************     
- 
+
 // *************************************************
 //     POV HATS SECTION
 // *************************************************
@@ -256,12 +258,10 @@ void loop() {
                //action on button press
                Joystick.setHatSwitch(0, ((i + 1) * 90));
                HATstate[i] = ((i + 1) * 90);
-               Joystick.sendState();
                }
               else {
                //action on button release
                Joystick.setHatSwitch(0, -1);
-               Joystick.sendState();
                HATstate[i] = -1;
              }
             }
@@ -276,36 +276,31 @@ void loop() {
 //     ENCODERS SECTION
 // *************************************************
    for (int i = 0; i <= (ENCnum - 1); i++) {
-     lastDebounceTime = millis();
-     if(lastDebounceTime >= (loopTime)){ //Encoder time check
       ENCA[i] = bitRead(switchVar[ENCregA[i]], ENCpinA[i]);     // Reads encoder state A 
       ENCB[i] = bitRead(switchVar[ENCregB[i]], ENCpinB[i]);     // Reads encoder state B 
-      if((!ENCA[i]) && (ENC_Aprev[i])){    // If state changes
+       if((!ENCA[i]) && (ENC_Aprev[i])){    // If state changes
        if(ENCB[i]) {
         //Encoder rotates A
-       Joystick.setHatSwitch(1, (i * 90));
-       Joystick.sendState();
+        Joystick.setHatSwitch(1, (i * 90));
+        delay(ENCtime[i]);
+        Joystick.setHatSwitch(1, -1);
        }   
        else { 
         //Encoder rotates B
         Joystick.setHatSwitch(1, ((i * 90)+180));
-       Joystick.sendState();
-       }   
-      }   
+        delay(ENCtime[i]);
+        Joystick.setHatSwitch(1, -1);
+       }  
+      }     
+      ENC_Aprev[i] = ENCA[i];     // Save A state  
      }
-    ENC_Aprev[i] = ENCA[i];     // Save A state
-   }
-  loopTime = lastDebounceTime;
-  if (lastDebounceTime % 15 == 0) {
-       Joystick.setHatSwitch(1, -1);
-       Joystick.sendState();
-       }
-    
+
+   
 // *************************************************
 //     ENCODERS SECTION ENDS HERE
 // *************************************************
 
-
+/*
  //*************************************************
  //             Axis controls
  //*************************************************
@@ -333,12 +328,6 @@ void loop() {
   Joystick.setZAxis(sensorValueZ);
   Joystick.setXAxisRotation(sensorValueRx);
 
-  Joystick.sendState();
-
-
-
-
-  
   //    *******************************************************
   //                 AXIS CALIBRATION (auto)
   //    
@@ -391,7 +380,9 @@ void loop() {
   if (sensorValueRx < sensorMinRx) {
     sensorMinRx = sensorValueRx;
   }
+      */
   lastlooptime = millis() - looptime;
+
 }
 
 //------------------------------------------------end main loop
@@ -447,6 +438,7 @@ byte shiftIn(int myDataPin, int myClockPin) {
   //Serial.println();
   //Serial.println(myDataIn, BIN);
   return myDataIn;
+
 }
 
 ////// ----------------------------------------getBit
