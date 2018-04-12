@@ -18,7 +18,7 @@ RG Custom GitHub link Here you can find latest Arduino sketches for your control
 Info on how to install additional libraries can be found here. https://www.arduino.cc/en/Guide/libraries#toc4 
 
 ### Libraries included as submodules.
-Arduino Joystick library ver 1.0  
+Arduino Joystick library 
 LiquidCrystal_I2C  
 Adafruit_NeoPixel  
 
