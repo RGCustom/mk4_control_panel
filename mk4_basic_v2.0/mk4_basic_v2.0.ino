@@ -7,6 +7,8 @@
 //****************************************************************
 #include <Wire.h>
 #include <Joystick.h>
+// Create the Joystick
+Joystick_ Joystick;
 
 //**************************************************
 //      PUSHBUTTONS SETUP / НАСТРОЙКА КНОПОК
@@ -52,14 +54,20 @@ unsigned long loopTime;
 const bool initAutoSendState = true;
 //const bool initAutoSendState = false;
 
-uint8_t joystickType = 0x04; // Default: 0x03 - Indicates the joystick's HID report ID. This value must be unique if you are creating multiple instances of Joystick. Do not use 0x01 or 0x02 as they are used by the built-in Arduino Keyboard and Mouse libraries.
+uint8_t joystickType = 0x08; // Default: 0x03 - Indicates the joystick's HID report ID. This value must be unique if you are creating multiple instances of Joystick. Do not use 0x01 or 0x02 as they are used by the built-in Arduino Keyboard and Mouse libraries.
 uint8_t buttonCount = 32; //Button count
-//uint8_t hatSwitchCount = 2;
+uint8_t hatSwitchCount = 2;
 
 
 //**************************************************
 //        AXIS INPUTS SETUP / НАСТРОЙКА ОСЕЙ
 //**************************************************
+
+const int xAxis = A0;         // analog sensor for X axis
+const int yAxis = A3;         // analog sensor for Y axis
+const int zAxis = A2;         // analog sensor for Z axis
+const int rXAxis = A1;        // analog sensor for rX axis
+
 bool includeXAxis = true; //Indicates if the X Axis is available on the joystick.
 bool includeYAxis = true; //Indicates if the Y Axis is available on the joystick.
 bool includeZAxis = true; //Indicates if the Z Axis (in some situations this is the right X Axis) is available on the joystick.
@@ -67,26 +75,29 @@ bool includeRxAxis = true; //Indicates if the X Axis Rotation (in some situation
 bool includeRyAxis = false; //Indicates if the Y Axis Rotation is available on the joystick.
 bool includeRzAxis = false; //Indicates if the Z Axis Rotation is available on the joystick.
 bool includeRudder = false; //Indicates if the Rudder is available on the joystick.
-bool includeThrottle = false; //Indicates if the Throttle is available on the joystick.
-bool includeAccelerator = false; //Indicates if the Accelerator is available on the joystick.
-bool includeBrake = false; //Indicates if the Brake is available on the joystick.
-bool includeSteering = false; //Indicates if the Steering is available on the joystick.
 const int CalibrationPin = 8; // calibration toggle switch
 
 // axis calibration variables:
-int sensorValueX = 0;         // the sensor X value
+int16_t sensorValueX = 0;         // the sensor X value
 int sensorValueY = 0;         // the sensor Y value
 int sensorValueZ = 0;         // the sensor Z value
 int sensorValueRx = 0;        // the sensor Rx value
+int sensorValueRy = 0;        // the sensor Rx value
+int sensorValueRz = 0;        // the sensor Rx value
 
 int sensorMinX = 0;           // minimum sensor value
-int sensorMaxX = 255;         // maximum sensor value
+int sensorMaxX = 1;         // maximum sensor value
 int sensorMinY = 0;           // minimum sensor value
-int sensorMaxY = 255;         // maximum sensor value
+int sensorMaxY = 1;         // maximum sensor value
 int sensorMinZ = 0;           // minimum sensor value
-int sensorMaxZ = 255;         // maximum sensor value
+int sensorMaxZ = 1;         // maximum sensor value
 int sensorMinRx = 0;           // minimum sensor value
-int sensorMaxRx = 359;         // maximum sensor value
+int sensorMaxRx = 1;         // maximum sensor value
+int sensorMinRy = 0;           // minimum sensor value
+int sensorMaxRy = 1;         // maximum sensor value
+int sensorMinRz = 0;           // minimum sensor value
+int sensorMaxRz = 1;         // maximum sensor value*/
+
 
 // variables will change:
 int CalibrationState = 0;     // variable for reading calibration status
@@ -138,6 +149,16 @@ void setup() {
 
   //start Joystick
   Joystick.begin(initAutoSendState);
+  
+ //defining axis ranges
+  Joystick.setXAxisRange(-32767, 32767);
+  Joystick.setYAxisRange(-32767, 32767); 
+  Joystick.setZAxisRange(-32767, 32767); 
+  Joystick.setRxAxisRange(-32767, 32767);
+  Joystick.setRyAxisRange(-32767, 32767);
+  Joystick.setRzAxisRange(-32767, 32767); 
+//  Joystick.setRudderAxisRange(0, 1023);
+//  Joystick.setThrottleAxisRange(0, 1023); 
 
   //define pin modes
   pinMode(latchPin, OUTPUT);
@@ -300,7 +321,7 @@ void loop() {
 //     ENCODERS SECTION ENDS HERE
 // *************************************************
 
-/*
+
  //*************************************************
  //             Axis controls
  //*************************************************
@@ -310,23 +331,27 @@ void loop() {
   sensorValueY = analogRead(yAxis);   // reading Y axis
   sensorValueZ = analogRead(zAxis);   // reading Z axis
   sensorValueRx = analogRead(rXAxis); // reading Rx axis
-
-  // apply the calibration to the sensor reading
-  sensorValueX = map(sensorValueX, sensorMinX, sensorMaxX, -127, 127);
-  sensorValueY = map(sensorValueY, sensorMinY, sensorMaxY, -127, 127);
-  sensorValueZ = map(sensorValueZ, sensorMinZ, sensorMaxZ, -127, 127);
-  sensorValueRx = map(sensorValueRx, sensorMinRx, sensorMaxRx, 0, 359);
+   
+// apply the calibration to the sensor reading
+  sensorValueX = map(sensorValueX, sensorMinX, sensorMaxX, 0, 257);
+  sensorValueY = map(sensorValueY, sensorMinY, sensorMaxY, 0, 257);
+  sensorValueZ = map(sensorValueZ, sensorMinZ, sensorMaxZ, 0, 257);
+  sensorValueRx = map(sensorValueRx, sensorMinRx, sensorMaxRx, 0, 257);
 
   // in case the sensor value is outside the range seen during calibration
-  sensorValueX = constrain(sensorValueX, -127, 127);
-  sensorValueY = constrain(sensorValueY, -127, 127);
-  sensorValueZ = constrain(sensorValueZ, -127, 127);
-  sensorValueRx = constrain(sensorValueRx, 0, 359);
+  sensorValueX = constrain(sensorValueX, 0, 257);
+  sensorValueY = constrain(sensorValueY, 0, 257);
+  sensorValueZ = constrain(sensorValueZ, 0, 257);
+  sensorValueRx = constrain(sensorValueRx, 0, 257);
 
   Joystick.setXAxis(sensorValueX);
   Joystick.setYAxis(sensorValueY);
   Joystick.setZAxis(sensorValueZ);
-  Joystick.setXAxisRotation(sensorValueRx);
+  Joystick.setRxAxis(sensorValueRx);
+  //Joystick.setRyAxis(sensorValueRx);
+  //Joystick.setRzAxis(sensorValueRx);
+
+ 
 
   //    *******************************************************
   //                 AXIS CALIBRATION (auto)
@@ -380,7 +405,7 @@ void loop() {
   if (sensorValueRx < sensorMinRx) {
     sensorMinRx = sensorValueRx;
   }
-      */
+      
   lastlooptime = millis() - looptime;
 
 }
