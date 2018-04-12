@@ -9,8 +9,12 @@ MK4 has 23 pushbuttons with simple action. You press and release or hold pushbut
 ### TOGGLE SWITCHES
 There are 10 toggle switches with pulse action. Each time you toggle switch it sends 30ms impulse on button activation on and off. So for example you activate toggle switch 1 and it sends command to push button 1, hold it for 30ms and release it. After that, when you will turn toggle switch off, it will do the same. Which is best used for toggling ingame systems like ship lights or landing gear.
 ### ROTARY ENCODERS
-MK4 has 2 rotary encoders with pushbuttons onboard. Rotary encoders are working same as mouse wheel. You rotate it clockwise - it emulates impulses of button A, counterclockwise - it emulates impulses of button B. By default encoders emulate POV HAT2 L/R and U/D. Also rotary encoders have push action, if you press it. Whis works just as a simple pushbutton. Calibration note: MK4 Control Panel firmware uses auto calibration of all axis inputs. Just turn each axis to min and max and it will calibrate inputs. 
+MK4 has 2 rotary encoders with pushbuttons onboard. Rotary encoders are working same as mouse wheel. You rotate it clockwise - it emulates impulses of button A, counterclockwise - it emulates impulses of button B. By default encoders emulate POV HAT2 L/R and U/D. Also rotary encoders have push action, if you press it. Whis works just as a simple pushbutton. 
+
+### ANALOGUE AXIS INPUTS
+MK4 Control Panel firmware uses auto calibration of all 4 axis inputs. Just turn each axis to min and max anytime and it will calibrate inputs. 
 ### !!!NEVER USE WINDOWS CALIBRATION UTILITY!!!
+
 ## USEFUL LINKS
 RG Custom GitHub link Here you can find latest Arduino sketches for your control panel and this manual. https://github.com/RGCustom/mk4_control_panel
 
