@@ -1,4 +1,4 @@
-![MK4 Control panel](mk4.png)
+![MK4 Control panel](mk4small.jpg)
 # RG Custom MK4 control panel
 
 MK4 Control Panel is plug and play and does not require any drivers to operate. However to modify it`s firmware you might need latest Arduino IDE software. (1.6.6 or above). To connect your control panel to your PC you need to attach USB cable to control panel and connect it to PC. And you are ready to go. Your PC recognises MK4 as USB joystick with 4 axis inputs, 2 POV hat switches and 32 buttons. So you have to bind keys in Joystick section of game settings.
