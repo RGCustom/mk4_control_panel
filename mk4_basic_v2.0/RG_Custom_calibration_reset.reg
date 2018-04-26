@@ -1,0 +1,12 @@
+Windows Registry Editor Version 5.00
+
+[-HKEY_CURRENT_USER\SYSTEM\CurrentControlSet\Control\MediaProperties\PrivateProperties\Joystick\OEM\VID_2341&PID_8036]
+[-HKEY_CURRENT_USER\System\CurrentControlSet\Control\MediaProperties\PrivateProperties\DirectInput\VID_2341&PID_8036]
+[-HKEY_CURRENT_USER\System\CurrentControlSet\Control\MediaResources\Joystick\DINPUT.DLL\JoystickSettings\VID_2341&PID_8036]
+[-HKEY_CURRENT_USER\System\CurrentControlSet\Control\MediaProperties\PrivateProperties\DirectInput\Vid_2341&Pid_8036\Calibration]
+[-HKEY_CURRENT_USER\System\CurrentControlSet\Control\MediaResources\Joystick\DINPUT.DLL\CurrentJoystickSettings]
+[-HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Enum\USB\VID_2341&PID_8036]
+[-HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Enum\HID\VID_2341&PID_8036]
+[-HKEY_LOCAL_MACHINE\SYSTEM\ControlSet001\Enum\USB\VID_2341&PID_8036]
+[-HKEY_LOCAL_MACHINE\SYSTEM\ControlSet001\Enum\HID\VID_2341&PID_8036]
+
