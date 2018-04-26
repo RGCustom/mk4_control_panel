@@ -334,16 +334,16 @@ void loop() {
   sensorValueRx = analogRead(rXAxis); // reading Rx axis
    
 // apply the calibration to the sensor reading
-  sensorValueX = map(sensorValueX, sensorMinX, sensorMaxX, 0, 257);
-  sensorValueY = map(sensorValueY, sensorMinY, sensorMaxY, 0, 257);
-  sensorValueZ = map(sensorValueZ, sensorMinZ, sensorMaxZ, 0, 257);
-  sensorValueRx = map(sensorValueRx, sensorMinRx, sensorMaxRx, 0, 257);
+  sensorValueX = map(sensorValueX, sensorMinX, sensorMaxX, -32767, 32767);
+  sensorValueY = map(sensorValueY, sensorMinY, sensorMaxY, -32767, 32767);
+  sensorValueZ = map(sensorValueZ, sensorMinZ, sensorMaxZ, -32767, 32767);
+  sensorValueRx = map(sensorValueRx, sensorMinRx, sensorMaxRx, -32767, 32767);
 
   // in case the sensor value is outside the range seen during calibration
-  sensorValueX = constrain(sensorValueX, 0, 257);
-  sensorValueY = constrain(sensorValueY, 0, 257);
-  sensorValueZ = constrain(sensorValueZ, 0, 257);
-  sensorValueRx = constrain(sensorValueRx, 0, 257);
+  sensorValueX = constrain(sensorValueX, -32767, 32767);
+  sensorValueY = constrain(sensorValueY, -32767, 32767);
+  sensorValueZ = constrain(sensorValueZ, -32767, 32767);
+  sensorValueRx = constrain(sensorValueRx, -32767, 32767);
 
   Joystick.setXAxis(sensorValueX);
   Joystick.setYAxis(sensorValueY);
