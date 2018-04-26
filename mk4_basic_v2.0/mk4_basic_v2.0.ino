@@ -260,9 +260,10 @@ void loop() {
 //     TOGGLE SWITCH SECTION ENDS HERE
 // *************************************************     
 
-// *************************************************
-//     POV HATS SECTION
-// *************************************************
+// *********************************************************
+//     POV HATS SECTION Hats can have 9 positions.
+//     -1 (nothing pressed) + degrees 0-315 with step of 45.
+// *********************************************************
     for (int i = 0; i <= (HATnum - 1); i++) {
       if (bitRead(switchVar[HATreg[i]], HATpin[i]) != bitRead(lastState[HATreg[i]], HATpin[i])) {
           // reset the debouncing timer
