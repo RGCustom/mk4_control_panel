@@ -32,6 +32,7 @@ or just go to My Documents > Arduino > libraries
 Select folder with a proper firmware sketch (it will start with device model, like mk4_basic_v2.0
 ### Open sketch .INO file. 
 ![Step4](PICS/5_open_sketch.jpg)
+
 Arduino IDE will open sketch.
 ### Open Tools menu and select Board -> Arduino Leonardo
 ![Step4](PICS/6_select_board.jpg)
@@ -48,10 +49,13 @@ Prepare Arduino IDE to upload firmware.
 # STEP 6
 ### Verify sketch by pressing VERIFY button
 ![Step6](PICS/10_verify.jpg)
+
 If everything is Ok, you will see smth like this
 ![Step6](PICS/11_verify_ok.jpg)
+
 After that hit upload button
 ![Step6](PICS/12_upload.jpg)
+
 After firmware will compile, Arduino IDE will start looking for controller in bootloader state
 ### And will start scanning ports for arduino, showing smth like
 PORTS {COM1, COM2, COM14, } / {COM1, COM2, COM14, } => {}
