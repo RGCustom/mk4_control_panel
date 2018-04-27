@@ -15,8 +15,10 @@ Go to MK4 Control Panel main GitHub directory https://github.com/RGCustom/mk4_co
 # STEP 3
 Now download and install needed libraries (for MK4 basic only ArduinoJoystickLibrary needed)
 ### Libraries, included as submodules wont download on previous step, so they must be downloaded separately.
-![Step2](PICS/4_download_libraries)
 ### Clicking on library will lead you to its location.
-Donwload the same as you downloaded main sketch.
+![Step2](PICS/4_download_libraries.jpg)
+### Click Branch button and select master to get the latest library.
+![Step2](PICS/4_download_libraries2.jpg)
+### Donwload library same as you downloaded main sketch.
 ![Step2](PICS/3_download.jpg)
-
+Unzip libraries an
