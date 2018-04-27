@@ -49,13 +49,10 @@ Prepare Arduino IDE to upload firmware.
 # STEP 6
 ### Verify sketch by pressing VERIFY button
 ![Step6](PICS/10_verify.jpg)
-
 If everything is Ok, you will see smth like this
 ![Step6](PICS/11_verify_ok.jpg)
-
-After that hit upload button
+### After that hit upload button
 ![Step6](PICS/12_upload.jpg)
-
 After firmware will compile, Arduino IDE will start looking for controller in bootloader state
 ### And will start scanning ports for arduino, showing smth like
 PORTS {COM1, COM2, COM14, } / {COM1, COM2, COM14, } => {}
