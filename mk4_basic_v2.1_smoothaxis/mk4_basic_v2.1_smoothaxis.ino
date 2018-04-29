@@ -46,7 +46,7 @@ int ENCpinB[] = {1, 7}; // shiftregister pins encoders direction B / ножки 
 int ENCA[ENCnum];
 int ENCB[ENCnum];
 int ENC_Aprev[ENCnum];
-int ENCtime[] = {4, 4}; // Encoders timing in ms. increase for slower and decrease for faster. Тайминги энкодеров
+int ENCtime[] = {2, 2}; // Encoders timing in ms. increase for slower and decrease for faster. Тайминги энкодеров
 unsigned long loopTime;
 
 
