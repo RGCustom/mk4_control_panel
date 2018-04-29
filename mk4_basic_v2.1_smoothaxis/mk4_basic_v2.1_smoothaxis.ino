@@ -62,10 +62,10 @@ uint8_t hatSwitchCount = 2;
 //**************************************************
 //        AXIS INPUTS SETUP / НАСТРОЙКА ОСЕЙ
 //**************************************************
-const int xAxisFilter = 8;         // smoothing for X axis
-const int yAxisFilter = 8;         // smoothing for Y axis
-const int zAxisFilter = 8;         // smoothing for Z axis
-const int rXAxisFilter = 8;        // smoothing for rX axis
+const int xAxisFilter = 16;         // smoothing for X axis
+const int yAxisFilter = 16;         // smoothing for Y axis
+const int zAxisFilter = 16;         // smoothing for Z axis
+const int rXAxisFilter = 16;        // smoothing for rX axis
 
 int xAxisRead[xAxisFilter];         // readings for X axis
 int yAxisRead[yAxisFilter];         // readings for Y axis
